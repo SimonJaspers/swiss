@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%22.3em%22 y=%22.9em%22 font-size=%2290%22>🇨🇭</text></svg>">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swiss Tournament</title>
+  </head>
+  <body>
+    <div class="App" data-bind="with: tournamentVM">
+      <header>
+        <h1>Your tournament</h1>
+        <button data-bind="click: reset">Reset</button>
+
+        <!-- ko if: phase() === "registration" -->
+        <button data-bind="click: start">Start</button>
+        <!-- /ko -->
+
+        <!-- ko if: phase() === "in_progress" -->
+        <button data-bind="click: restart">Restart</button>
+        <button data-bind="click: complete">Complete</button>
+        <!-- /ko -->
+
+        <!-- ko if: phase() === "completed" -->
+        <button data-bind="click: restart">Restart</button>
+        <!-- /ko -->
+      </header>
+
+      <ranking></ranking>
+      <!-- ko if: phase() === "in_progress" -->
+      <round-overview></round-overview>
+      <!-- /ko -->
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

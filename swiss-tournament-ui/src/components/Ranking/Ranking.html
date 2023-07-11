@@ -1,0 +1,25 @@
+<div class="Ranking">
+  <h2>Ranking</h2>
+  <!-- ko foreach: ranking -->
+  <ranked-player-row params="
+      id: id,
+      score: score,
+      tieBreakScore: tieBreakScore,
+      rank: rank,
+      name: name,
+      record: record,
+      selectedId: $component.selectedPlayerId
+    "></ranked-player-row>
+
+    <!-- ko if: $component.selectedPlayerId() === id -->
+    <player-details params="
+      player: $data,
+      phase: $root.phase,
+      tournament: $root.tournament"></player-details>
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: showRegistrationForm -->
+    <player-registration-form></player-registration-form>
+    <!-- /ko -->
+</div>

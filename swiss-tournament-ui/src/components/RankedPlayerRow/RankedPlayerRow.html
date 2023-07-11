@@ -1,0 +1,18 @@
+<div class="RankedPlayerRow" data-bind="
+  click: handleClick,
+  css: { 'is-selected': isSelected }">
+  <div data-bind="text: rank, css: rankClass" class="RankedPlayerRow-cell RankedPlayerRow-rank"></div>
+  <div data-bind="text: name" class="RankedPlayerRow-cell RankedPlayerRow-name"></div>
+  <div class="RankedPlayerRow-cell RankedPlayerRow-scores">
+    <div data-bind="text: score" class="RankedPlayerRow-score"></div>
+    <div class="RankedPlayerRow-tieBreakScore">
+      ⚖️ <span data-bind="text: tieBreakScore"></span>
+    </div>
+  </div>
+
+  <div class="RankedPlayerRow-results">
+    <div class="RankedPlayerRow-result RankedPlayerRow-result--win" data-bind="text: record.win + 'W'"></div>
+    <div class="RankedPlayerRow-result RankedPlayerRow-result--draw" data-bind="text: record.draw + 'D'"></div>
+    <div class="RankedPlayerRow-result RankedPlayerRow-result--loss" data-bind="text: record.lose + 'L'"></div>
+  </div>
+</div>

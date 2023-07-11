@@ -1,0 +1,51 @@
+
+<h2>Matches in round <span data-bind="text: roundNr"></span>:</h2>
+
+<!-- ko if: pairings().length === 0 -->
+<h3>ALL MATCHES PLAYED</h3>
+<!-- /ko -->
+<!-- ko if: pairings().length > 0 -->
+<table>
+  <thead>
+    <tr>
+      <th>Player 1</th>
+      <th>Player 2</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody data-bind="foreach: pairings">
+    <tr>
+      <td data-bind="text: player1.name"></td>
+      <td
+        data-bind="
+              text: player2.name,
+              style: { textDecoration: player1.id === player2.id ? 'line-through' : 'none' }"
+      ></td>
+      <td>
+        <!-- ko if: player1.id !== player2.id -->
+        <label>
+          <input type="radio" data-bind="checkedValue: 0, checked: result" />
+          Not played
+        </label>
+        <label>
+          <input type="radio" data-bind="checkedValue: 1, checked: result" />
+          <span data-bind="text: player1.name"></span> won
+        </label>
+        <label>
+          <input type="radio" data-bind="checkedValue: 0.5, checked: result" />
+          Draw
+        </label>
+        <label>
+          <input type="radio" data-bind="checkedValue: -1, checked: result" />
+          <span data-bind="text: player2.name"></span> won
+        </label>
+        <!-- /ko -->
+        <!-- ko if: player1.id === player2.id -->
+        <em>bye</em>
+        <!-- /ko -->
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button data-bind="click: completeRound">Go to next round</button>
+<!-- /ko-->

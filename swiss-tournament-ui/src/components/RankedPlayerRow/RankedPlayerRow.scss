@@ -1,0 +1,192 @@
+.RankedPlayerRow {
+  --borderColor: #ebebeb;
+  --size: 60px;
+  --winColor: #81b64c;
+  --lossColor: #ca3431;
+  --drawColor: #3291cd;
+
+  height: var(--size);
+  margin-bottom: 1rem;
+  
+  display: flex;
+  color: rgb(28, 31, 34);
+  background-color: white;
+  // border: 1px solid var(--borderColor);
+  box-shadow: 
+    var(--borderColor) 0px 0px 0px 1px inset,
+    rgba(28, 31, 34, 0.1) 0px 10px 30px,
+    rgba(0, 0, 0, 0.05) 0px 1px 3px;
+  
+  border-radius: .5rem;
+
+  align-items: center;
+  cursor: pointer;
+
+  &:hover,
+  &.is-selected {
+    --borderColor: var(--drawColor);
+  }
+
+  &.is-selected {
+    background: rgb(207, 204, 241);
+  }
+
+  &--not-selectable {
+    cursor: default;
+
+    &:hover {
+      --borderColor: #efefef;
+    }
+  }
+
+  
+}
+
+.RankedPlayerRow-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+  &:not(:last-child) {
+    border-right: 1px solid var(--borderColor);
+  }
+}
+
+.RankedPlayerRow-rank {
+  flex: none;
+  width: var(--size);
+  font-size: 2.5rem;
+
+  &::before {
+    content: "#";
+    opacity: .6;
+    font-weight: 400;
+    font-size: .4em;
+    align-self: flex-start;
+    margin-top: .6rem;
+  }
+
+  &.is-gold::after,
+  &.is-silver::after,
+  &.is-bronze::after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 1.5rem;
+  }
+  
+  &.is-gold::after {
+    content: "🏆"; 
+    rotate: 15deg;
+  }
+
+  &.is-silver::after {
+    content: "🥈";
+    rotate: -5deg;
+  }
+
+  &.is-bronze::after {
+    content: "🥉"; 
+    rotate: 5deg;
+  }
+
+
+  &--virtual {
+    opacity: .5;
+
+    &::before {
+      content: "";
+    }
+  }
+}
+
+.RankedPlayerRow-name {
+  font-size: 1.75rem;
+  padding: 0 1rem;
+  flex-grow: 1;
+  justify-content: flex-start;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.RankedPlayerRow-scores {
+  padding: 0 1rem;
+  flex: none;
+  width: var(--size);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+
+  flex-direction: column;
+  justify-self: center;
+}
+
+.RankedPlayerRow-score {
+  font-size: 1.75rem;
+
+}
+
+.RankedPlayerRow-tieBreakScore {
+  opacity: .8;
+  white-space: nowrap;
+  font-size: .75rem;
+  margin-top: -.5rem;
+  padding-bottom: .25rem;
+}
+
+.RankedPlayerRow-results {
+  width: var(--size);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  font-size: .75rem;
+  font-weight: 700;
+  
+  > .RankedPlayerRow-result:not(:last-child) {
+    border-bottom: 1px solid var(--borderColor);
+  }
+}
+
+.RankedPlayerRow-result {
+  --accent: black;
+
+  flex: 1;
+  text-align: center;
+  padding: 0 1rem;
+
+  color: var(--accent);
+}
+
+.RankedPlayerRow-result--win {
+  --accent: var(--winColor);
+}
+
+.RankedPlayerRow-result--draw {
+  --accent: var(--drawColor);
+}
+
+.RankedPlayerRow-result--loss {
+  --accent: var(--lossColor);
+}
+
+.RankedPlayerRow-input {
+  display: flex;
+  flex-grow: 1;
+  gap: 1rem;
+  padding: 0 1rem;
+  
+  input[type=text] {
+    flex-grow: 1;
+  }
+}
+
+.RankedPlayerRow-submit {
+  width: calc(2 * var(--size));
+  padding: 0 1rem;
+  input[type=submit] {
+    flex-grow: 1;
+  }
+}
