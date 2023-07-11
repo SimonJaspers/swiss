@@ -10,7 +10,7 @@ type RankedPlayerParams = {
   name: string;
   score: number;
   tieBreakScore: number;
-  record: { win: number; loss: number; draw: number; };
+  record: { win: number; loss: number; draw: number };
   id: string;
 };
 
@@ -37,10 +37,13 @@ const RankedPlayerRowVM = ({
 
     rankClass: ko.pureComputed(() => {
       if (phase() === "completed") {
-        switch(rank) {
-          case 1: return "is-gold";
-          case 2: return "is-silver";
-          case 3: return "is-bronze";
+        switch (rank) {
+          case 1:
+            return "is-gold";
+          case 2:
+            return "is-silver";
+          case 3:
+            return "is-bronze";
         }
       }
 
@@ -48,10 +51,9 @@ const RankedPlayerRowVM = ({
     }),
 
     handleClick: () => {
-      if (selectedPlayerId() !== id)
-        selectedPlayerId(id);
+      if (selectedPlayerId() !== id) selectedPlayerId(id);
       else selectedPlayerId(null);
-    }
+    },
   };
 };
 

@@ -5,19 +5,17 @@ import ko from "knockout";
 //       still allowing for more precisely typed VM constructors?
 type VMConstructor = (params: any) => any;
 
-
 export const registerComponent = (
   tag: string,
   vmConstructor: VMConstructor,
-  template: string
+  template: string,
 ): void => {
-
   if (!ko.components.isRegistered(tag)) {
-    ko.components.register(tag, { 
+    ko.components.register(tag, {
       template,
       viewModel: {
-        createViewModel: vmConstructor
-      }
-    })
+        createViewModel: vmConstructor,
+      },
+    });
   }
-}
+};

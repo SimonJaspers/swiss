@@ -35,7 +35,7 @@ const [state, _dispose] = createSyncedModel(
     currentRound: ko.observable(null),
   },
   stringifyState,
-  writeStringifiedState
+  writeStringifiedState,
 );
 
 export function resultStateToResult(rState: ResultState): Result {
@@ -68,7 +68,7 @@ function stringifyState(state: TournamentState) {
 
 function writeStringifiedState(
   model: TournamentState,
-  stringifiedState: string
+  stringifiedState: string,
 ) {
   const plainState = JSON.parse(stringifiedState) as PlainTournamentState;
 

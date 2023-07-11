@@ -4,12 +4,12 @@ export function createSyncedModel<TModel>(
   storageKey: string,
   model: TModel,
   stringify: (model: TModel) => string,
-  write: (model: TModel, storedModel: string) => void
+  write: (model: TModel, storedModel: string) => void,
 ): [TModel, () => void] {
   const storedModel = localStorage.getItem(storageKey);
 
   if (storedModel !== null) {
-    write(model, storedModel)
+    write(model, storedModel);
   }
 
   const autoSync = ko.computed(() => {
@@ -17,5 +17,10 @@ export function createSyncedModel<TModel>(
     localStorage.setItem(storageKey, string);
   });
 
-  return [ model, function dispose() { autoSync.dispose(); } ];
+  return [
+    model,
+    function dispose() {
+      autoSync.dispose();
+    },
+  ];
 }

@@ -1,26 +1,25 @@
-import ko from "knockout"
+import ko from "knockout";
 import { createRound } from "../../../../swiss/main";
-import { resultStateToResult, resultToResultState, tournamentState } from "../../state/TournamentState";
+import {
+  resultStateToResult,
+  resultToResultState,
+  tournamentState,
+} from "../../state/TournamentState";
 import { registerComponent } from "../Component";
 import template from "./RoundOverview.html?raw";
-
-
 
 const RoundOverviewVM = ({}) => {
   const { tournament, currentRound, completedRounds, phase } = tournamentState;
 
-  const roundNr = ko.pureComputed(() => {
-    return completedRounds().length + 1
-  });
-
   const pairings = ko.pureComputed(() => currentRound() ?? []);
 
+  const roundNr = ko.pureComputed(() => {
+    return completedRounds().length + 1;
+  });
 
-
-  // TODO: limit to max rounds
   const maxRounds = ko.pureComputed(() => {
     const evenCompetitors = Math.floor(tournament().length / 2) * 2;
-    
+
     return evenCompetitors - 1;
   });
 
@@ -29,32 +28,45 @@ const RoundOverviewVM = ({}) => {
     pairings,
 
     roundHasStarted: ko.pureComputed(() => {
-      return pairings().length && pairings().some(p => p.result() !== 0);
+      return pairings().some((p) => p.result() !== 0);
     }),
 
     completeRound: () => {
-      const hasUnplayedGames = pairings().some(p => p.result() === 0 && p.player1 !== p.player2);
+      const hasUnplayedGames = pairings().some(
+        (p) => p.result() === 0 && p.player1 !== p.player2,
+      );
 
-      if (hasUnplayedGames && !confirm("There are unplayed games this round. Proceeding means involved players do not receive any points.")) {
+      if (
+        hasUnplayedGames &&
+        !confirm(
+          "There are unplayed games this round. Proceeding means involved players do not receive any points.",
+        )
+      ) {
         return;
       }
 
-      
+      // Register current round as completed
       const completedRound = pairings().map(resultStateToResult);
       completedRounds.push(completedRound);
 
+      // Check if we need to start a new round
       const tournamentComplete = completedRounds().length === maxRounds();
-      const nextRound = createRound(tournament(), completedRounds()).map(resultToResultState);
+      const nextRound = createRound(tournament(), completedRounds()).map(
+        resultToResultState,
+      );
 
-      if (tournamentComplete || nextRound.every(({ player1, player2 }) => player1.id === player2.id)) {
+      // TODO: figure out if the part after || can ever be true
+      if (
+        tournamentComplete ||
+        nextRound.every(({ player1, player2 }) => player1.id === player2.id)
+      ) {
         currentRound(null);
-        phase("completed")
+        phase("completed");
       } else {
         currentRound(nextRound);
       }
-    }
-  }
-  
-}
+    },
+  };
+};
 
-registerComponent("round-overview", RoundOverviewVM, template)
+registerComponent("round-overview", RoundOverviewVM, template);
