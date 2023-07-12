@@ -1,10 +1,23 @@
 
 <h2>Matches in round <span data-bind="text: roundNr"></span>:</h2>
 
-<!-- ko if: pairings().length === 0 -->
-<h3>ALL MATCHES PLAYED</h3>
+<!-- ko if: groups().played.length -->
+<h3>Played</h3>
+<!-- ko foreach: groups().played -->
+<pairing-result params="pairing: $data"></pairing-result>
+<!-- /ko -->
 <!-- /ko -->
 
-<!-- ko foreach: pairings -->
+<!-- ko if: groups().todo.length -->
+<h3>Matches to be played</h3>
+<!-- ko foreach: groups().todo -->
 <pairing-result params="pairing: $data"></pairing-result>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: groups().byes.length -->
+<h3>No game this round</h3>
+<!-- ko foreach: groups().byes -->
+<pairing-result params="pairing: $data"></pairing-result>
+<!-- /ko -->
 <!-- /ko -->

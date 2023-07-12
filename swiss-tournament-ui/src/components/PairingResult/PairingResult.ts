@@ -16,9 +16,13 @@ registerComponent("pairing-result", ({ pairing }: { pairing: ResultState }) => {
     { label: `Not played`, value: 0 },
   ]
 
+  const isBye = pairing.player1.id === pairing.player2.id;
+
   return {
-    isBye: pairing.player1.id === pairing.player2.id,
-    label: `${pairing.player1.name} vs. ${pairing.player2.name}`,
+    isBye,
+    label: isBye
+      ? pairing.player1.name
+      : `${pairing.player1.name} vs. ${pairing.player2.name}`,
     resultOptions,
     result: pairing.result
   }

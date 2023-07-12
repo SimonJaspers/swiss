@@ -1,6 +1,24 @@
-<div>
-
-  <div data-bind="text: name"></div>
-
+<div class="PlayerDetails">
+  <!-- ko if: showDeregister -->
   <button data-bind="click: deregister">Remove</button>
+  <!-- /ko -->
+
+  <table>
+    <thead>
+      <tr>
+        <th>Round</th>
+        <!-- ko foreach: results -->
+        <th class="PlayerDetails-result" data-bind="text: $index() + 1"></th>
+        <!-- /ko -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Result</td>
+        <!-- ko foreach: results -->
+        <td class="PlayerDetails-result" data-bind="css: style, text: points"></td>
+        <!-- /ko -->
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -1,4 +1,4 @@
-<div class="PairingResult Card">
+<div class="PairingResult Card" data-bind="css: { 'is-collapsed': isBye }">
   <div class="PairingResult-players" data-bind="text: label"></div>
 
   <div class="PairingResult-options">
@@ -6,7 +6,7 @@
     <radio-group params="options: resultOptions, value: result"></radio-group>
     <!-- /ko -->
     <!-- ko if: isBye -->
-    <em>bye</em>
+    <em>No game this round</em>
     <!-- /ko -->
   </div>
 </div>

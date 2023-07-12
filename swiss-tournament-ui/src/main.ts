@@ -226,5 +226,3 @@ window.addEventListener("error", (e) => {
     alert(e.message)
   }
 })
-
-console.log(ko.utils.registerEventHandler)

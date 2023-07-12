@@ -16,7 +16,7 @@
   cursor: pointer;
 
   &.is-selected {
-    background: rgb(207, 204, 241);
+    background: rgba(50, 145, 205, 0.05);
   }
 
   &--not-selectable {
