@@ -28,8 +28,8 @@ const RankedPlayerRowVM = ({
   return {
     rank,
     name,
-    score,
-    tieBreakScore,
+    score: score || "-",
+    tieBreakScore: tieBreakScore || "",
     record,
     isSelected: ko.pureComputed(() => {
       return selectedPlayerId() === id;

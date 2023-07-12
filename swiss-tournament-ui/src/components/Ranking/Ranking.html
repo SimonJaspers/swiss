@@ -1,7 +1,9 @@
 <div class="Ranking">
   <h2>Ranking</h2>
+  
+  <div class="Card">
   <!-- ko foreach: ranking -->
-  <ranked-player-row params="
+    <ranked-player-row params="
       id: id,
       score: score,
       tieBreakScore: tieBreakScore,
@@ -22,4 +24,5 @@
     <!-- ko if: showRegistrationForm -->
     <player-registration-form></player-registration-form>
     <!-- /ko -->
+  </div>
 </div>

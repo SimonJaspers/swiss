@@ -1,0 +1,45 @@
+.RadioGroup {
+  border-radius: .5rem;
+  display: inline-block;
+  display: flex;
+  font-size: .75em;
+
+  --activeColor: #3291cd;
+}
+
+.RadioGroup-option {
+  cursor: pointer;
+  flex: 1;
+  line-height: 1;
+
+  accent-color: var(--activeColor);
+
+  padding: 0.5rem .5rem;
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
+  border-left: 1px solid #ebebeb;
+
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+
+  &:hover {
+    background: #ebebeb;
+  }
+
+  &:has(input:checked) {
+    color: white;
+    background: var(--activeColor);
+  }
+
+  &:first-child {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+  }
+
+  &:last-child {
+    border-right: 1px solid #ebebeb;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+  }
+}

@@ -1,0 +1,12 @@
+<div class="PairingResult Card">
+  <div class="PairingResult-players" data-bind="text: label"></div>
+
+  <div class="PairingResult-options">
+    <!-- ko ifnot: isBye -->
+    <radio-group params="options: resultOptions, value: result"></radio-group>
+    <!-- /ko -->
+    <!-- ko if: isBye -->
+    <em>bye</em>
+    <!-- /ko -->
+  </div>
+</div>

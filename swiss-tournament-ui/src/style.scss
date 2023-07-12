@@ -14,6 +14,8 @@ html {
 
 h2 {
   font-weight: 700;
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
 }
 
 figure {
@@ -46,6 +48,36 @@ input[type="text"] {
 button,
 input[type=submit] {
   padding: .5rem;
+
+  background-color: white;
+  border: 2px solid rgb(45, 45, 45);
+  border-radius: .75rem;
+  padding: .25rem 1rem;
+  font-family: Mukta, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+
+  accent-color: blue;
+  transition: box-shadow .2s ease-in-out;
+  outline: none;
+
+  &:hover {
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.07), 0 7px 5px rgba(0, 0, 0, 0.04), 0 12px 10px rgba(0, 0, 0, 0.03), 0 22px 18px rgba(0, 0, 0, 0.03), 0 42px 33px rgba(0, 0, 0, 0.02), 0 100px 80px rgba(0, 0, 0, 0.02);
+  }
+
+  &:active,
+  &:focus,
+  &:focus-visible {
+    border-color: blue;
+    color: blue;
+  }
+
+  &.green {
+    background: #81b64c;
+    color: white;
+
+  }
 }
 
 .numeric {
@@ -67,38 +99,71 @@ input[type=submit] {
 }
 
 .App {
-  background: rgb(158, 177, 207);
+  background: rgb(246, 248, 250);
   width: 100vw;
   height: 100vh;
 
   display: grid;
-  column-gap: 1rem;
-  grid-template-rows: min-content auto;
+  grid-template-rows: 1fr min-content;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    "header header"
-    "ranking round-overview";
-
-  header {
-    grid-area: header;
-    background-color: white;
-    display: flex;
-    align-items: center; 
-    border-bottom: 1px solid #ebebeb;
-    padding: 0 1rem;
-    gap: .5rem;
-    
-    h1 {
-      flex-grow: 1;
-    }
-  }
+    "ranking round-overview"
+    "ranking footer";
 
   ranking {
     grid-area: ranking;
-    border-right: 1px solid red;
+    padding-left: 1rem;
+    padding-bottom: 2rem;
+    overflow: scroll;
+
+    > div {
+      margin-bottom: 3rem;
+    }
   }
 
   round-overview {
     grid-area: round-overview;
+    padding-right: 1rem;
+    overflow: scroll;
   }
+
+  ranking,
+  round-overview {
+    padding: 1rem;
+  }
+}
+
+.App-footer {
+  grid-area: footer;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  background: white;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  margin: 0 1rem;
+  box-shadow:
+    0 -2.75px 2.21px rgba(0,0,0,.07),
+    0 -6.65px 5.32px rgba(0,0,0,.043),
+    0 -12.5px 10px rgba(0,0,0,.03),
+    0 -22px 18px rgba(0,0,0,.03);
+    
+  fieldset {
+    border: none;
+  }
+}
+
+.Card {
+  background-color: white;
+  border-radius: .5rem;
+  overflow: hidden;
+  box-shadow:
+    0 2.75px 2.21px rgba(0,0,0,.07),
+    0 6.65px 5.32px rgba(0,0,0,.043),
+    0 12.5px 10px rgba(0,0,0,.03),
+    0 22px 18px rgba(0,0,0,.03),
+    0 42px 33.4px rgba(0,0,0,.02),
+    0 100px 80px rgba(0,0,0,.017);
 }

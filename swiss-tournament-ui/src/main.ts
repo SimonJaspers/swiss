@@ -13,7 +13,7 @@ import "./components/RankedPlayerRow/RankedPlayerRow";
 import "./components/Ranking/Ranking";
 import "./components/RoundOverview/RoundOverview";
 
-import { resultToResultState, tournamentState } from "./state/TournamentState";
+import { resultStateToResult, resultToResultState, tournamentState } from "./state/TournamentState";
 import { uiState } from "./state/UiState";
 
 const { phase, tournament, completedRounds, currentRound } = tournamentState;
@@ -38,6 +38,12 @@ const startTournament = () => {
     throw new Error(
       "Cannot start a tournament that is not in registration phase",
     );
+
+  if (tournament().length < 2) {
+    throw new UiError(
+      "You need at least 2 players to start a tournament"
+    )
+  }
 
   currentRound(
     createRound(tournament(), completedRounds()).map(resultToResultState),
@@ -84,6 +90,46 @@ const removePlayer = (player: Competitor) => {
   if (selectedPlayerId() === player.id) selectedPlayerId(null);
 };
 
+const completeRound = () => {
+  const round = currentRound();
+  if (!round) throw new UiError("No ongoing round to complete");
+
+  const hasUnplayedGames = round.some(
+    (p) => p.result() === 0 && p.player1 !== p.player2,
+  );
+
+  if (
+    hasUnplayedGames &&
+    !confirm(
+      "There are unplayed games this round. Proceeding means involved players do not receive any points.",
+    )
+  ) {
+    return;
+  }
+
+  // Register current round as completed
+  const completedRound = round.map(resultStateToResult);
+  completedRounds.push(completedRound);
+
+  // Check if we need to start a new round
+  const maxRounds = Math.floor(tournament().length / 2) * 2 - 1;
+  const tournamentComplete = completedRounds().length === maxRounds;
+  const nextRound = createRound(tournament(), completedRounds()).map(
+    resultToResultState,
+  );
+
+  // TODO: figure out if the part after || can ever be true
+  if (
+    tournamentComplete ||
+    nextRound.every(({ player1, player2 }) => player1.id === player2.id)
+  ) {
+    currentRound(null);
+    phase("completed");
+  } else {
+    currentRound(nextRound);
+  }
+};
+
 // Tournament
 const tournamentVM = {
   phase,
@@ -91,10 +137,15 @@ const tournamentVM = {
 
   selectedPlayerId,
 
+  canReset: ko.pureComputed(() => 
+    tournament().length > 0
+  ),
+
   start: startTournament,
   restart: restartTournament,
   complete: completeTournament,
   reset: startNewTournament,
+  completeRound
 };
 
 const clock = ko.observable(new Date());
@@ -158,8 +209,22 @@ const vm = {
     selectedPlayer(null);
     tournament([]);
   },
+
+  errorHandler: (e: Error) => {
+    console.log("caught error");
+    alert(e.message)
+  }
 };
 
 ko.applyBindings(vm);
 
 window.ko = ko;
+
+
+window.addEventListener("error", (e) => {
+  if (e.error instanceof Error) {
+    alert(e.message)
+  }
+})
+
+console.log(ko.utils.registerEventHandler)

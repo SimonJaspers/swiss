@@ -1,31 +1,19 @@
 .RankedPlayerRow {
   --borderColor: #ebebeb;
-  --size: 60px;
+  --size: 70px;
   --winColor: #81b64c;
   --lossColor: #ca3431;
   --drawColor: #3291cd;
 
   height: var(--size);
-  margin-bottom: 1rem;
   
   display: flex;
   color: rgb(28, 31, 34);
-  background-color: white;
-  // border: 1px solid var(--borderColor);
-  box-shadow: 
-    var(--borderColor) 0px 0px 0px 1px inset,
-    rgba(28, 31, 34, 0.1) 0px 10px 30px,
-    rgba(0, 0, 0, 0.05) 0px 1px 3px;
-  
-  border-radius: .5rem;
+
+  border-bottom: 1px solid var(--borderColor);
 
   align-items: center;
   cursor: pointer;
-
-  &:hover,
-  &.is-selected {
-    --borderColor: var(--drawColor);
-  }
 
   &.is-selected {
     background: rgb(207, 204, 241);
@@ -35,7 +23,7 @@
     cursor: default;
 
     &:hover {
-      --borderColor: #efefef;
+      --borderColor: #ebebeb;
     }
   }
 

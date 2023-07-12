@@ -9,28 +9,43 @@
   </head>
   <body>
     <div class="App" data-bind="with: tournamentVM">
-      <header>
-        <h1>Your tournament</h1>
-        <button data-bind="click: reset">Reset</button>
-
-        <!-- ko if: phase() === "registration" -->
-        <button data-bind="click: start">Start</button>
-        <!-- /ko -->
-
-        <!-- ko if: phase() === "in_progress" -->
-        <button data-bind="click: restart">Restart</button>
-        <button data-bind="click: complete">Complete</button>
-        <!-- /ko -->
-
-        <!-- ko if: phase() === "completed" -->
-        <button data-bind="click: restart">Restart</button>
-        <!-- /ko -->
-      </header>
-
       <ranking></ranking>
       <!-- ko if: phase() === "in_progress" -->
       <round-overview></round-overview>
       <!-- /ko -->
+
+      <footer class="App-footer">
+        <fieldset>
+          <legend>Tournament</legend>
+          <!-- ko if: phase() === "registration" -->
+          <button data-bind="click: reset">Reset</button>
+          <button class="green" data-bind="click: start">Start</button>
+          <!-- /ko -->
+
+          <!-- ko if: phase() === "in_progress" -->
+          <button data-bind="click: complete">End</button>
+          <!-- /ko -->
+
+          <!-- ko if: phase() === "completed" -->
+          <button data-bind="click: reset">New</button>
+          <!-- /ko -->
+
+          <!-- ko if: phase() !== "registration" -->
+          <button data-bind="click: restart">Restart</button>
+          <!-- /ko -->
+        </fieldset>
+
+        <!-- ko if: phase() === "in_progress" -->
+        <fieldset>
+          <legend>
+            Round
+          </legend>
+          <button class="green" data-bind="click: completeRound">Complete</button>
+        </fieldset>
+        <!-- /ko -->
+        
+
+      </footer>
     </div>
 
     <script type="module" src="/src/main.ts"></script>

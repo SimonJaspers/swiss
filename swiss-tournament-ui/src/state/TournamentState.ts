@@ -13,7 +13,7 @@ type PlainTournamentState = {
   currentRound: Result[] | null;
 };
 
-type ResultState = {
+export type ResultState = {
   player1: Competitor;
   player2: Competitor;
   result: ko.Observable<ScoringOption>;
